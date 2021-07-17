@@ -1,0 +1,27 @@
+<div>
+    <div>
+        <div><h3>List of my publications</h3></div>
+        <div><a
+                href="{% url 'add_master_publication' %}">Start new Publication</a></div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for single_page_obj in page %}
+            <tr>
+                <th>{{ single_page_obj.title }}</th>
+                <td> {{ single_page_obj.description }}
+                </td>
+                <td>
+                    <a href="{% url 'details' id=single_page_obj.id %}">Szczegóły</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

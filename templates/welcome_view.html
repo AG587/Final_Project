@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scientific Publication Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<header class="page-header">
+    <nav class="navbar navbar-expand-lg justify-content-around">
+        <h1>
+            Welcome to Scientific Publication Assistant
+        </h1>
+        <section class="section-more padding-small">
+            <div class="container d-flex justify-content-between">
+                <div class="mr-4">
+                     <ul class="nav flex-column long-bg">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">
+                                <span>About application</span>
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_master_publication' %}">
+                                <span>New publication</span>
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'my_publications' %}">
+                                <span>My Publications</span>
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                </div>
+            </div>
+        </section>
+    </nav>
+</header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
