@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
 </head>
 <body>
+    <form action="/add_master_publication/" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+        {{ message }}
 
+<a href="{% url 'my_publications' %}">Go to publications list</a>
 </body>
 </html>

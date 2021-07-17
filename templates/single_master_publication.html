@@ -1,0 +1,46 @@
+<div>
+    <div>
+        <div><h3>My Publication: {{ master_publication.title }}</h3></div>
+    </div>
+<p> Add Publication </p>
+<p> Add Result </p>
+    <table>
+        <thead>
+        Publications List:
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Section</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for single_pub in publications %}
+            <tr>
+                <th>{{ single_pub.title }}</th>
+                <td> {{ single_pub.description }}</td>
+                <td> {{ single_pub.section }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<table>
+        <thead>
+        Results List:
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for single_pub in publications %}
+            <tr>
+                <th>{{ single_pub.title }}</th>
+                <td> {{ single_pub.description }}</td>
+                <td> {{ single_pub.section }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

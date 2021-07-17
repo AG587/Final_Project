@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from scientific_publication_assistant.views import WelcomeView, AboutView, AddMasterPublicationView, MasterPublicationsListView
-
+from scientific_publication_assistant.views import WelcomeView, AboutView, AddMasterPublicationView, \
+    MasterPublicationsListView, SingleMasterPublicationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('about/', AboutView.as_view(), name="about"),
     path('add_master_publication/', AddMasterPublicationView.as_view(), name="add_master_publication"),
     path('my_publications/', MasterPublicationsListView.as_view(), name="my_publications"),
+    path('master_publication/<int:id>/', SingleMasterPublicationView.as_view(), name='single-master-publication'),
 
 ]
