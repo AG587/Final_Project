@@ -1,10 +1,16 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
 <div>
     <div>
         <div><h3>My Publication: {{ master_publication.title }}</h3></div>
-        <a href={% url 'add-publication-to-master' id=master_publication.id %}>Add Publication</a>
-
+        <br>
+        <a href={% url 'add-publication-to-master' id=master_publication.id %} class="btn btn-primary">Add
+        Publication</a>
+        <br>
     </div>
-    <table>
+    <table class="table">
         <thead>
         <h2>Publications List:</h2>
         <tr>
@@ -22,14 +28,16 @@
                 <td> {{ pub.description }}</td>
                 <td> {{ pub.section }} </td>
                 <td> {{ pub.year_of_publication }} </td>
-                <td> {{ pub.citation_text}} </td>
+                <td> {{ pub.citation_text }} </td>
                 <td><a href="{% url 'delete-publication' id=pub.id %}">Delete</a>
-                <a href="{% url 'edit-publication' id=pub.id %}">Edit</a></td>
+                    <a href="{% url 'edit-publication' id=pub.id %}">Edit</a></td>
             </tr>
         {% endfor %}
     </table>
- <a href={% url 'add-result-to-master' id=master_publication.id %}>Add Result</a>
-  <table>
+    <br>
+    <a href={% url 'add-result-to-master' id=master_publication.id %} class="btn btn-primary">Add Result</a>
+    <br>
+    <table class="table">
         <thead>
         <h2>Results List:</h2>
         <tr>
@@ -45,7 +53,7 @@
                 <td> {{ result.description }}</td>
                 <td> {{ result.conclusion }} </td>
                 <td><a href="{% url 'delete-result' id=result.id %}">Delete</a>
-                <a href="{% url 'edit-result' id=result.id %}">Edit</a></td>
+                    <a href="{% url 'edit-result' id=result.id %}">Edit</a></td>
             </tr>
         {% endfor %}
     </table>

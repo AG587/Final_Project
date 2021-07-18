@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from scientific_publication_assistant.views import WelcomeView, AboutView, AddMasterPublicationView, \
     MasterPublicationsListView, SingleMasterPublicationView, AddPublicationToMasterView, AddResultToMasterView, \
-    EditPublicationView, delete_publication_view, EditResultView, delete_result_view
+    EditPublicationView, delete_publication_view, EditResultView, delete_result_view, LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,5 +32,6 @@ urlpatterns = [
     path('delete_publication/<int:id>', delete_publication_view, name='delete-publication'),
     path('add_result/<int:id>', AddResultToMasterView.as_view(), name='add-result-to-master'),
     path('edit_result/<int:id>', EditResultView.as_view(), name='edit-result'),
-    path('delete_result/<int:id>', delete_result_view, name='delete-result')
+    path('delete_result/<int:id>', delete_result_view, name='delete-result'),
+    path('accounts/login/', LoginView, name='login')
 ]

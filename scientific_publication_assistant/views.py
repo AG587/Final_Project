@@ -1,10 +1,13 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView
 
 from scientific_publication_assistant.forms import MasterPublicationAddForm, PublicationAddForm, ResultAddForm, \
-    PublicationEditForm, ResultEditForm
+    PublicationEditForm, ResultEditForm, LoginForm
 from scientific_publication_assistant.models import MasterPublication, PublicationMasterPublication, Publication, \
     Result, ResultMasterPublication
 
@@ -17,14 +20,15 @@ class AboutView(TemplateView):
     template_name = "about.html"
 
 
-class MasterPublicationsListView(ListView):
+class MasterPublicationsListView(LoginRequiredMixin, ListView):
     model = MasterPublication
     template_name = 'master_publication_list.html'
-    context_object_name = 'page'
+    context_object_name = 'pubs'
     paginate_by = 10
     queryset = MasterPublication.objects.order_by('-created')
 
-class AddMasterPublicationView(View):
+
+class AddMasterPublicationView(LoginRequiredMixin, View):
     def get(self, request):
         form = MasterPublicationAddForm()
         return render(request, 'add_master_publication.html', {"form": form})
@@ -41,7 +45,7 @@ class AddMasterPublicationView(View):
             return render(request, 'add_master_publication.html', {"form": form, 'message': message})
 
 
-class SingleMasterPublicationView(View):
+class SingleMasterPublicationView(LoginRequiredMixin, View):
     def get(self, request, id):
         master_publication = MasterPublication.objects.get(id=id)
         pubs = Publication.objects.filter(masterpublication=master_publication)
@@ -50,7 +54,7 @@ class SingleMasterPublicationView(View):
                       {"master_publication": master_publication, "pubs": pubs, 'results': results})
 
 
-class AddPublicationToMasterView(View):
+class AddPublicationToMasterView(LoginRequiredMixin, View):
     def get(self, request, id):
         master_publication = MasterPublication.objects.get(id=id)
         form = PublicationAddForm()
@@ -81,7 +85,7 @@ class AddPublicationToMasterView(View):
                       {"form": form, 'message': message, 'master_publication': master_publication})
 
 
-class AddResultToMasterView(View):
+class AddResultToMasterView(LoginRequiredMixin, View):
     def get(self, request, id):
         master_publication = MasterPublication.objects.get(id=id)
         form = ResultAddForm()
@@ -102,7 +106,7 @@ class AddResultToMasterView(View):
                       {"form": form, 'message': message, 'master_publication': master_publication})
 
 
-class EditPublicationView(View):
+class EditPublicationView(LoginRequiredMixin, View):
     def get(self, request, id):
         publication = Publication.objects.get(id=id)
         form = PublicationEditForm(initial={'title': publication.title,
@@ -136,7 +140,7 @@ class EditPublicationView(View):
                       {"form": form, 'message': message, 'publication': publication})
 
 
-class EditResultView(View):
+class EditResultView(LoginRequiredMixin, View):
     def get(self, request, id):
         result = Result.objects.get(id=id)
         form = ResultEditForm(initial={'title': result.title,
@@ -159,17 +163,37 @@ class EditResultView(View):
                       {"form": form, 'message': message, 'result': result})
 
 
+@login_required
 def delete_publication_view(request, id):
     publication = Publication.objects.get(id=id)
     publication.delete()
     message = "Publication succesfully deleted!"
     return render(request, 'delete_publication.html',
-                      {'message': message, 'publication': publication})
+                  {'message': message, 'publication': publication})
 
 
+@login_required
 def delete_result_view(request, id):
     result = Result.objects.get(id=id)
     result.delete()
     message = "Result succesfully deleted!"
     return render(request, 'delete_publication.html',
-                      {'message': message, 'result': result})
+                  {'message': message, 'result': result})
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username_to_check = form.cleaned_data['username']
+            password_to_check = form.cleaned_data['password']
+            user = authenticate(username=username_to_check, password=password_to_check)
+        if user is not None:
+            login(request, user)
+            message = "User logged in!"
+        else:
+            message = "Authentication failed."
+        return HttpResponse(message)
