@@ -1,8 +1,7 @@
 <div>
     <div>
-        <div><h3>My Publication: {{ master_publication.tittle }}</h3></div>
+        <div><h3>My Publication: {{ master_publication.title }}</h3></div>
         <a href={% url 'add-publication-to-master' id=master_publication.id %}>Add Publication</a>
-        <a href={% url 'add-result-to-master' id=master_publication.id %}>Add Result</a>
 
     </div>
     <table>
@@ -29,7 +28,7 @@
             </tr>
         {% endfor %}
     </table>
-
+ <a href={% url 'add-result-to-master' id=master_publication.id %}>Add Result</a>
   <table>
         <thead>
         <h2>Results List:</h2>

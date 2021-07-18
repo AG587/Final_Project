@@ -21,9 +21,8 @@ class MasterPublicationsListView(ListView):
     model = MasterPublication
     template_name = 'master_publication_list.html'
     context_object_name = 'page'
-    paginate_by = 2
+    paginate_by = 10
     queryset = MasterPublication.objects.order_by('-created')
-
 
 class AddMasterPublicationView(View):
     def get(self, request):
