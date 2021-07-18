@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView
 
-from scientific_publication_assistant.forms import MasterPublicationAddForm, PublicationAddForm, ResultAddForm
+from scientific_publication_assistant.forms import MasterPublicationAddForm, PublicationAddForm, ResultAddForm, \
+    PublicationEditForm, ResultEditForm
 from scientific_publication_assistant.models import MasterPublication, PublicationMasterPublication, Publication, \
     Result, ResultMasterPublication
 
@@ -104,13 +106,71 @@ class AddResultToMasterView(View):
 class EditPublicationView(View):
     def get(self, request, id):
         publication = Publication.objects.get(id=id)
-        form = PublicationAddForm(instance=publication)
+        form = PublicationEditForm(initial={'title': publication.title,
+                                            'year_of_publication': publication.year_of_publication,
+                                            'citation_full': publication.citation_full,
+                                            'citation_text': publication.citation_text,
+                                            'description': publication.description,
+                                            'link': publication.link,
+                                            'topic': publication.topic,
+                                            'section': publication.section,
+                                            'id': publication.id,
+                                            }
+                                   )
         return render(request, 'edit_publication.html', {'form': form})
 
-    def post(self, request):
+    def post(self, request, id):
         publication = Publication.objects.get(id=id)
-        form = PublicationAddForm(instance=publication)
-        p = PublicationAddForm(request.POST, instance=publication)
-        p.save()
-        message = "Publication succesfully edited"
-        return render(request, 'edit_publication.html', {"form": form, 'message': message})
+        form = PublicationEditForm
+        publication.title = request.POST.get('title')
+        publication.year_of_publication = request.POST.get('year_of_publication')
+        publication.citation_full = request.POST.get('citation_full')
+        publication.citation_text = request.POST.get('citation_text')
+        publication.description = request.POST.get('description')
+        publication.link = request.POST.get('link')
+        publication.topic = request.POST.get('topic')
+        publication.section = request.POST.get('section')
+        publication.save()
+        message = "Publication succesfully edited!"
+
+        return render(request, 'edit_publication.html',
+                      {"form": form, 'message': message, 'publication': publication})
+
+
+class EditResultView(View):
+    def get(self, request, id):
+        result = Result.objects.get(id=id)
+        form = ResultEditForm(initial={'title': result.title,
+                                       'description': result.description,
+                                       'conclusion': result.conclusion,
+                                       'id': result.id,
+                                       }
+                              )
+        return render(request, 'edit_result.html', {'form': form})
+
+    def post(self, request, id):
+        result = Result.objects.get(id=id)
+        form = ResultEditForm
+        result.title = request.POST.get('title')
+        result.description = request.POST.get('description')
+        result.conclusion = request.POST.get('conclusion')
+        result.save()
+        message = "Result succesfully edited!"
+        return render(request, 'edit_result.html',
+                      {"form": form, 'message': message, 'result': result})
+
+
+def delete_publication_view(request, id):
+    publication = Publication.objects.get(id=id)
+    publication.delete()
+    message = "Publication succesfully deleted!"
+    return render(request, 'delete_publication.html',
+                      {'message': message, 'publication': publication})
+
+
+def delete_result_view(request, id):
+    result = Result.objects.get(id=id)
+    result.delete()
+    message = "Result succesfully deleted!"
+    return render(request, 'delete_publication.html',
+                      {'message': message, 'result': result})

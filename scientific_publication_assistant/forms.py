@@ -15,10 +15,29 @@ class PublicationAddForm(forms.Form):
     section = forms.ChoiceField(label="Section", choices=SECTIONS)
 
 
+class PublicationEditForm(forms.Form):
+    title = forms.CharField(label="Title", max_length=255)
+    year_of_publication = forms.IntegerField(label="Year of publication")
+    citation_full = forms.CharField(label="Full citation")
+    citation_text = forms.CharField(label="Citation in text", max_length=64)
+    description = forms.CharField(label="Description")
+    link = forms.CharField(label="Link", max_length=255)
+    topic = forms.CharField(label="Topic", max_length=255)
+    section = forms.ChoiceField(label="Section", choices=SECTIONS)
+    id = forms.IntegerField(widget=forms.HiddenInput)
+
+
 class ResultAddForm(forms.Form):
     title = forms.CharField(label="Title", max_length=255)
     description = forms.CharField(label="Description")
     conclusion = forms.CharField(label="Conclusion")
+
+
+class ResultEditForm(forms.Form):
+    title = forms.CharField(label="Title", max_length=255)
+    description = forms.CharField(label="Description")
+    conclusion = forms.CharField(label="Conclusion")
+    id = forms.IntegerField(widget=forms.HiddenInput)
 
 
 class MasterPublicationAddForm(forms.Form):

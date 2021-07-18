@@ -7,41 +7,46 @@
     </div>
     <table>
         <thead>
-        Publications List:
+        <h2>Publications List:</h2>
         <tr>
             <th>Title</th>
             <th>Description</th>
             <th>Section</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for pub in pubs %}
-            <tr>
-                <th>{{ pub.title }}</th>
-                <td> {{ pub.description }}</td>
-                <td> {{ pub.section }} </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        Results List:
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Year of Publication</th>
+            <th>Citation</th>
             <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
-        {% for result in results %}
+        {% for pub in pubs %}
             <tr>
-                <th>{{ result.title }}</th>
-                <td> {{ result.description }}</td>
-                <td> {{ result.section }} </td>
+                <td>{{ pub.title }}</td>
+                <td> {{ pub.description }}</td>
+                <td> {{ pub.section }} </td>
+                <td> {{ pub.year_of_publication }} </td>
+                <td> {{ pub.citation_text}} </td>
+                <td><a href="{% url 'delete-publication' id=pub.id %}">Delete</a>
+                <a href="{% url 'edit-publication' id=pub.id %}">Edit</a></td>
             </tr>
         {% endfor %}
-        </tbody>
+    </table>
+
+  <table>
+        <thead>
+        <h2>Results List:</h2>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Conclusion</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.title }}</td>
+                <td> {{ result.description }}</td>
+                <td> {{ result.conclusion }} </td>
+                <td><a href="{% url 'delete-result' id=result.id %}">Delete</a>
+                <a href="{% url 'edit-result' id=result.id %}">Edit</a></td>
+            </tr>
+        {% endfor %}
     </table>
