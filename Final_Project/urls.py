@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from scientific_publication_assistant.views import WelcomeView, AboutView, AddMasterPublicationView, \
-    MasterPublicationsListView, SingleMasterPublicationView
+    MasterPublicationsListView, SingleMasterPublicationView, AddPublicationToMasterView, AddResultToMasterView, \
+    EditPublicationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome_view/', WelcomeView.as_view(), name="welcome_view"),
+    path('welcome_view/', WelcomeView.as_view(), name="welcome-view"),
     path('about/', AboutView.as_view(), name="about"),
-    path('add_master_publication/', AddMasterPublicationView.as_view(), name="add_master_publication"),
-    path('my_publications/', MasterPublicationsListView.as_view(), name="my_publications"),
+    path('add_master_publication/', AddMasterPublicationView.as_view(), name="add-master-publication"),
+    path('my_publications/', MasterPublicationsListView.as_view(), name="my-publications"),
     path('master_publication/<int:id>/', SingleMasterPublicationView.as_view(), name='single-master-publication'),
-
+    path('add_publication/<int:id>', AddPublicationToMasterView.as_view(),
+         name='add-publication-to-master'),
+    path('add_result/<int:id>', AddResultToMasterView.as_view(), name='add-result-to-master'),
+    path('edit_publication/<int:id>', EditPublicationView.as_view(), name='edit-publication')
 ]

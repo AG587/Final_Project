@@ -3,13 +3,13 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <form action="/add_master_publication/" method="POST">
+    <form action="#" method="POST">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit">
     </form>
         {{ message }}
 
-<a href="{% url 'my-publications' %}">Go to publications list</a>
+<a href="{% url 'single-master-publication' id=master_publication.id %}">Go to main page of Publication</a>
 </body>
 </html>

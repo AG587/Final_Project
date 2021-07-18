@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import ModelForm
 
-from scientific_publication_assistant.models import PUBLICATION_TYPES, SECTIONS
+from scientific_publication_assistant.models import PUBLICATION_TYPES, SECTIONS, Publication, Result
 
 
 class PublicationAddForm(forms.Form):

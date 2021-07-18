@@ -1,9 +1,10 @@
 <div>
     <div>
-        <div><h3>My Publication: {{ master_publication.title }}</h3></div>
+        <div><h3>My Publication: {{ master_publication.tittle }}</h3></div>
+        <a href={% url 'add-publication-to-master' id=master_publication.id %}>Add Publication</a>
+        <a href={% url 'add-result-to-master' id=master_publication.id %}>Add Result</a>
+
     </div>
-<p> Add Publication </p>
-<p> Add Result </p>
     <table>
         <thead>
         Publications List:
@@ -15,17 +16,17 @@
         </tr>
         </thead>
         <tbody>
-        {% for single_pub in publications %}
+        {% for pub in pubs %}
             <tr>
-                <th>{{ single_pub.title }}</th>
-                <td> {{ single_pub.description }}</td>
-                <td> {{ single_pub.section }} </td>
+                <th>{{ pub.title }}</th>
+                <td> {{ pub.description }}</td>
+                <td> {{ pub.section }} </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-<table>
+    <table>
         <thead>
         Results List:
         <tr>
@@ -35,11 +36,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for single_pub in publications %}
+        {% for result in results %}
             <tr>
-                <th>{{ single_pub.title }}</th>
-                <td> {{ single_pub.description }}</td>
-                <td> {{ single_pub.section }} </td>
+                <th>{{ result.title }}</th>
+                <td> {{ result.description }}</td>
+                <td> {{ result.section }} </td>
             </tr>
         {% endfor %}
         </tbody>
