@@ -3,6 +3,12 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <div>
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a href={% url 'my-publications' %} class="btn-dark">My Publications</a>
+</div>
+
+    <br>
     <div>
         <div><h3>My Publication: {{ master_publication.title }}</h3></div>
         <br>
@@ -13,7 +19,7 @@
     <table class="table">
         <thead>
         <h2>Publications List:</h2>
-        <tr>
+        <tr class="table-primary">
             <th>Title</th>
             <th>Description</th>
             <th>Section</th>
@@ -35,12 +41,12 @@
         {% endfor %}
     </table>
     <br>
-    <a href={% url 'add-result-to-master' id=master_publication.id %} class="btn btn-primary">Add Result</a>
+    <a href={% url 'add-result-to-master' id=master_publication.id %} class="btn btn-danger">Add Result</a>
     <br>
     <table class="table">
         <thead>
         <h2>Results List:</h2>
-        <tr>
+        <tr class="table-danger">
             <th>Title</th>
             <th>Description</th>
             <th>Conclusion</th>
@@ -57,3 +63,4 @@
             </tr>
         {% endfor %}
     </table>
+

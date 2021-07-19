@@ -25,7 +25,7 @@ class MasterPublicationsListView(LoginRequiredMixin, ListView):
     template_name = 'master_publication_list.html'
     context_object_name = 'pubs'
     paginate_by = 10
-    queryset = MasterPublication.objects.order_by('-created')
+    queryset = MasterPublication.objects.order_by("id")
 
 
 class AddMasterPublicationView(LoginRequiredMixin, View):
