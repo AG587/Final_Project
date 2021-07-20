@@ -21,6 +21,8 @@ class AboutView(TemplateView):
 
 
 class MasterPublicationsListView(LoginRequiredMixin, ListView):
+    """ A view used to show list of Projects the Team is working on."""
+
     model = MasterPublication
     template_name = 'master_publication_list.html'
     context_object_name = 'pubs'
@@ -29,6 +31,7 @@ class MasterPublicationsListView(LoginRequiredMixin, ListView):
 
 
 class AddMasterPublicationView(LoginRequiredMixin, View):
+    """ Enables creating a new Project """
     def get(self, request):
         form = MasterPublicationAddForm()
         return render(request, 'add_master_publication.html', {"form": form})
@@ -46,6 +49,8 @@ class AddMasterPublicationView(LoginRequiredMixin, View):
 
 
 class SingleMasterPublicationView(LoginRequiredMixin, View):
+    """ Single Project panel, a user can add literature,
+    notes and prescribe them to specific sections """
     def get(self, request, id):
         master_publication = MasterPublication.objects.get(id=id)
         pubs = Publication.objects.filter(masterpublication=master_publication)
